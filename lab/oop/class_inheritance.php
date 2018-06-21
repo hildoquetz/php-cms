@@ -32,4 +32,3 @@ if(class_exists("Plane") && method_exists("Plane", "moveWheels") ){
 $jet = new Plane();
 $jet->moveWheels();
 echo $jet->wheels;
-
