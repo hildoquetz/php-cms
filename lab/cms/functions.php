@@ -20,6 +20,4 @@
         return $r;
     }
 
-    $get_category = "SELECT category FROM category"; 
-										$categories = db_query($get_category);
 
