@@ -54,7 +54,7 @@
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="action" id="action" value="insert">
-                        <input type="submmit" name="btn_action" id="btn_action" class="btn btn-success" value="Add">
+                        <input type="submit" name="btn_action" id="btn_action" class="btn btn-success" value="Add">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -83,12 +83,12 @@ $('#add').click(function(){
     $('#crudModal').modal('show');
 });
 // validate data to insert
-$('#crudModal').on('submmit',function(event){
+$('#crudModal').on('submit',function(event){
     // prevent refresh page
     event.preventDefault();
-    if($('#first_name') == ''){
+    if($('#first_name').val() == ''){
         alert("Enter first name");
-    } else if ($('#first_name') == ''){
+    } else if($('#last_name').val() == ''){
         alert("Enter last name");
     } else {
         // convert data to past into url 
@@ -103,7 +103,7 @@ $('#crudModal').on('submmit',function(event){
                 $('#crudModal').modal('hide');
                 if(data == 'insert'){
                     alet("Data insert");
-                } else if(data == 'updata'){
+                } else if(data == 'update'){
                     alet("Data update");
                 } else if(data == 'delete'){
                     alet("Data delete");

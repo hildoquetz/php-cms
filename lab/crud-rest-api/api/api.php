@@ -21,10 +21,31 @@ class API {
                 $data[] = $row;
             }
             return $data;
-        } else {
-            die("Query unsucessifull");
-        }
-        
+        } 
     }
-    
+
+    function insert() {
+        if(isset($_POST['first_name'])){
+            $form_data = array(
+                ':first_name'   => $_POST['first_name'],
+                ':last_name'   => $_POST['last_name']
+            );
+            $query = "INSERT INTO lead VALUES (default, :first_name, :last_name)";
+            $startment = $this->db_connect->prepare($query);
+            if($startment->execute($form_data)){
+                $data[] = array(
+                    'success'   => '1'
+                );
+            } else {
+                $data[] = array(
+                    'success'   => '0'
+                );
+            }
+        } else {
+            $data[] = array(
+                'success'   => '0'
+            );
+        }
+    }
+
 }
