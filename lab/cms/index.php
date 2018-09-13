@@ -1,7 +1,7 @@
 <?php 
 	require 'functions.php';
 	require 'header.php';
-	
+	header('Content-Type: text/html; charset=utf-8');
 ?>
 		<!---start-wrap---->
 			<!---start-header---->
@@ -21,12 +21,14 @@
 									<ul>
 										<li><a href="#"><span>home</span></a></li>
 										<?php
-										include 'config.php';
-										$get_category = "SELECT category FROM category"; 
-										$categories = db_query($get_category);
-										while($row = mysqli_fetch_assoc($categories)){
-											echo "<li><a href='#'><span>{$row['category']}</span></a></li>";
-										}
+											$get_category = "SELECT cat_title FROM cms_category"; 
+											$categories = db_query($get_category);
+											while($row = mysqli_fetch_assoc($categories)){
+												$item = "<li><a href='#'><span>" ;
+												$item .= $row['cat_title']; 
+												$item .= "</span></a></li>";
+												echo $item;
+											}
 										?>
 										<li><a href="#"><span>Blog</span></a></li>
 										<li><a href="contact.html"><span>Contact</span></a></li>
@@ -39,8 +41,23 @@
 					</div> 
 				</div>       	  
 				<div class="top-searchbar">
-					<form>
-						<input type="text" /><input type="submit" value="" />
+					<?php 
+						if(isset($_POST['search'])){
+							$str = $_POST['search'];
+							$query = "SELECT * FROM cms_post WHERE pos_tags LIKE '%$str%'";
+							$result = db_query($query); 
+							if($result != ''){
+								while($row = mysqli_fetch_assoc($result)) {
+									echo $row['pos_title'];
+								}
+							} else {
+								echo 'Nada encontrado';
+							}
+						}
+					?>
+					<form action="" method="post">
+						<input name="search" type="text"/>
+						<input name="submit" type="submit" value=""/>
 					</form>
 				</div>
 				<div class="userinfo">
@@ -60,6 +77,39 @@
 			 <div id="main" role="main">
 			      <ul id="tiles">
 			        <!-- These are our grid blocks -->
+
+			        <style type="text/css">
+			        	.feature-image {
+			        		width: 100%;
+			        		height: auto;
+			        	}
+			        </style>
+			        <!-- start post from database -->
+			        <?php
+
+						$get_post = "SELECT * FROM cms_post"; 
+						
+						$post = db_query($get_post);
+						$url = 'https://quetz.com.br';
+						while($row = mysqli_fetch_assoc($post)){
+							$content 	= '<li onclick="location.href=\'single-page.html\'">';
+							$content 	.= '<img class="feature-image" src="';
+							$content 	.= BASE_URL . '/'. $row['pos_image'] . '">';
+							$content 	.= '<div class="post-basic-info">';
+							$content 	.= '<h3><a href="' . BASE_URL . '/#!">'; 
+							$content 	.= $row['pos_title'] . '</a></h3>';
+							$content 	.= '<span><a href="' . BASE_URL . '/#!">';
+							$content 	.= $row['pos_tags'] . '</a></span>';
+							$content 	.= '<p>' . $row['pos_content'] . '</p></div>';
+							$content 	.= '<div class="post-info-rate-share">';
+							$content 	.= '<div class="rateit"><span></span></div>';
+							$content 	.= '<div class="post-share"><span></span></div>';
+							$content 	.= '<div class="clear"></div></div></li>';
+							echo $content;
+						}
+					?>
+					<!-- end post from database -->
+
 			        <li onclick="location.href='single-page.html';">
 			        	<img src="images/img1.jpg" width="282" height="118">
 			        	<div class="post-info">
@@ -79,6 +129,8 @@
 			        		</div>
 			        	</div>
 			        </li>
+			        
+
 			        <li onclick="location.href='single-page.html';">
 			        	<img src="images/img2.jpg" width="282" height="344">
 						<div class="post-info">

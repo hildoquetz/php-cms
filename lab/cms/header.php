@@ -8,9 +8,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 	<head>
+		 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 		<title>Pinball Website Template | Home :: w3layouts</title>
 		<link href="css/style.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
 		<link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>

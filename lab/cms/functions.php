@@ -1,6 +1,7 @@
 <?php
-    require 'config.php';
+    require_once 'config.php';
 
+        mb_internal_encoding('UTF-8');
     function db_connect(){
         $link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         if (!$link){
@@ -12,6 +13,8 @@
 
     function db_query($query){
         $link = db_connect();
+        mysqli_set_charset('utf8', $link);
+        mysqli_query("SET character_set_results=utf8", $link);
         $r = mysqli_query($link, $query);
         if(!$r){
             die("Query error: " . mysqli_error($link));
